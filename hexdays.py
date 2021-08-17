@@ -4,8 +4,6 @@ from collections import Counter
 
 class HexDays:
 
-  DAYS = 'sun', 'mon', 'tue', 'wed', 'thu','fri','sat','all'
-
   def  hex_to_days(self, dia):
     """Retorna un listado con los dias utilizado marcados con el número 1.
 
@@ -15,24 +13,30 @@ class HexDays:
     Returns:
       [list] -- listado con los dias de la semana
 
-
     >>> HexDays().hex_to_days("F5")
     [0, 2, 4, 5, 6, 7]
 
-    >>> HexDays().hex_to_days(None)
-    None
+    >>> HexDays().hex_to_days(None) is None
+    True
 
-    >>> HexDays().hex_to_days('')
-    None
+    >>> HexDays().hex_to_days('') is None
+    True
+
+    >>> HexDays().hex_to_days('abc') is None
+    True
     """
-    if dia:
-      hex_to_bin  = bin(int(dia,16))[2:]
-      bit_to_list = [str(i) for i in hex_to_bin.zfill(8)]
+    try:
+      if 0 <= int(dia, 16) <= 255:
+        hex_to_bin  = bin(int(dia,16))[2:]
+        bit_to_list = [str(i) for i in hex_to_bin.zfill(8)]
 
-      bit_to_list.reverse()
-      return [i for i in range(len(bit_to_list)) if bit_to_list[i] == '1']
-      # return bit_to_list
-      # return {DAYS[i] : int(bit_to_list[i])   for i in range(8)}
+        bit_to_list.reverse()
+        return [i for i in range(len(bit_to_list)) if bit_to_list[i] == '1']
+
+    except:
+      pass
+
+
     return None
 
 
@@ -49,8 +53,8 @@ class HexDays:
     >>> HexDays().days_to_hex([])
     '00'
 
-    >>> HexDays().days_to_hex(None)
-    None
+    >>> HexDays().days_to_hex(None) is None
+    True
     """
     try:
       if len(dias) > 0:
@@ -60,6 +64,7 @@ class HexDays:
 
         n = hex(int("".join(days_list),2))
         return "{:X}".format(int(n, 16)).zfill(2)
+
       return '00'
     except TypeError:
       return None
@@ -68,6 +73,6 @@ class HexDays:
 if __name__ == "__main__":
 
   import doctest
-
   doctest.testmod(verbose=True)
+
 
