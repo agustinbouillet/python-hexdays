@@ -24,7 +24,7 @@ Que da como resultado el número: [1,2,4] = 16
 
 ## Uso
 
-### encode()
+### hex_to_days()
 
 ```python
 >>> HexDays().hex_to_days("F5")
@@ -41,7 +41,7 @@ True
 ```
 
 
-### decode()
+### days_to_hex()
 
 ```python
 >>> HexDays().days_to_hex([0, 2, 4, 5, 6, 7])
